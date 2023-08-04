@@ -42,15 +42,18 @@ function createSlider(containerId, options) {
     // кнопочки true/false
     if (showControls) {
       const nextBtn = document.createElement('button');
-      nextBtn.textContent = 'Далее';
+      nextBtn.innerText = 'Далее';
+      // nextBtn.id = 'next-btn';
       nextBtn.addEventListener('click', nextSlide);
 
       const prevBtn = document.createElement('button');
-      prevBtn.textContent = 'Назад';
+      prevBtn.innerText = 'Назад';
+      // prevBtn.id = 'prev-btn';
       prevBtn.addEventListener('click', prevSlide);
 
-      container.parentNode.insertBefore(prevBtn, container); 
-      container.parentNode.insertBefore(nextBtn, container);
+      container.before(prevBtn);
+      container.before(nextBtn);
+      
     }
 
     // Возвращаем объект с методами управления слайдером
@@ -66,6 +69,25 @@ function createSlider(containerId, options) {
     showControls: true,
   });
 
+
+
+  // <script>
+     
+  //     const button = document.createElement('button')
+
+     
+  //     button.innerText = 'Can you click me?'
+
+  //     button.id = 'mainButton'
+
+     
+  //     button.addEventListener('click', () => {
+        
+  //       alert('Oh, you clicked me!')
+  //     })
+
+  //     document.body.appendChild(button)
+  //   </script>
 
 
 
