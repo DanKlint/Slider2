@@ -23,9 +23,9 @@ h1 {
 
 button {
   cursor: pointer;
-  margin: 0px 5px 10px;
+  margin: 10px 5px;
   background: none;
-  border: 1px solid black;
+  border: 3px solid black;
   border-radius: 4px;
   padding: 10px 20px;
   font-size: 0.9rem;
@@ -40,18 +40,19 @@ button:active {
   color: #fff;
 }
 
-.slider {
+#slider {
   text-align: center;
   width: 256px;
-  height: 296px;
+  height: 320px;
   margin: 30px auto;
+  border: 3px solid black;
   overflow: hidden;
 }
 
 #slider-line {
   height: 256px;
   width: 1024px;
-  background: orangered;
+  background: rgb(255, 255, 255);
   display: flex;
   position: relative;
   left: 0;
@@ -60,4 +61,6 @@ button:active {
 
 #slider-line img {
   width: 256px;
+  pointer-events: none;
+  user-select: none;
 }
