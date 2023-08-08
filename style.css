@@ -21,6 +21,11 @@ h1 {
   margin-bottom: 40px;
 }
 
+.button-wrap {
+  text-align: center;
+  margin: 0 auto;
+}
+
 button {
   cursor: pointer;
   margin: 10px 5px;
@@ -40,10 +45,10 @@ button:active {
   color: #fff;
 }
 
-#slider {
+.slider {
   text-align: center;
-  width: 256px;
-  height: 320px;
+  width: 262px;
+  height: 262px;
   margin: 30px auto;
   border: 3px solid black;
   overflow: hidden;

@@ -1,9 +1,18 @@
 "use strict";
 
-function createSlider(containerId, wrapId, options) {
-  const container = document.getElementById(containerId);
-  const wrap = document.getElementById(wrapId);
-  const slides = container.getElementsByTagName('img');
+function createSlider(sliderLineId, options) {
+  const container = document.createElement('div');
+  container.classList.add('container');
+
+  const slider = document.createElement('div');
+  slider.classList.add('slider');
+
+  const buttonWrap = document.createElement('div');
+  buttonWrap.classList.add('button-wrap');
+
+  const sliderLine = document.getElementById(sliderLineId);
+  const slides = sliderLine.getElementsByTagName('img');
+  
   const slideWidth = slides[0].width;
   const totalSlides = slides.length;
   let currentIndex = 0;
@@ -16,7 +25,16 @@ function createSlider(containerId, wrapId, options) {
   let autoScrollInterval = null;
   let autoScrollDelay = options.autoScrollDelay || 3000;
 
-  wrap.style.width=`${256 * slidesPerFrame}px`;
+  slider.style.width=`${256 * slidesPerFrame + 6}px`;
+
+  
+
+  document.body.append(container);
+  container.append(slider);
+  slider.append(sliderLine);
+  container.append(buttonWrap);
+
+
 
   function startAutoScroll() {
     if (autoScroll){
@@ -34,15 +52,15 @@ function createSlider(containerId, wrapId, options) {
     }
   }
 
-  container.addEventListener('mouseenter', stopAutoScroll, false); //остановка автоскролла, если мышка находится на изображении слайдера
-  container.addEventListener('mouseleave', startAutoScroll, false);
+  sliderLine.addEventListener('mouseenter', stopAutoScroll, false); //остановка автоскролла, если мышка находится на изображении слайдера
+  sliderLine.addEventListener('mouseleave', startAutoScroll, false);
 
-  container.addEventListener('mousedown', handleMouseDown, false);
-  container.addEventListener('mouseup', handleMouseUp, false);
+  sliderLine.addEventListener('mousedown', handleMouseDown, false);
+  sliderLine.addEventListener('mouseup', handleMouseUp, false);
 
   function handleMouseDown(event) {
     mouseStartX = event.clientX;
-    container.addEventListener('mousemove', handleMouseMove, false);
+    sliderLine.addEventListener('mousemove', handleMouseMove, false);
   }
 
   function handleMouseMove(event) {
@@ -50,7 +68,7 @@ function createSlider(containerId, wrapId, options) {
   }
 
   function handleMouseUp(event) {
-    container.removeEventListener('mousemove', handleMouseMove, false);
+    sliderLine.removeEventListener('mousemove', handleMouseMove, false);
     handleSwipe();
   }
 
@@ -86,7 +104,7 @@ function createSlider(containerId, wrapId, options) {
   // Функция обновления слайдера
   function updateSlider() {
     const offset = -currentIndex * slideWidth;
-    container.style.transform = `translateX(${offset}px)`;
+    sliderLine.style.transform = `translateX(${offset}px)`;
   }
 
   // кнопочки true/false
@@ -112,10 +130,10 @@ function createSlider(containerId, wrapId, options) {
     startBtn.id = 'start-btn';
     startBtn.addEventListener('click', startAutoScroll);
 
-    wrap.append(prevBtn);
-    wrap.append(startBtn);
-    wrap.append(stopBtn);
-    wrap.append(nextBtn);
+    buttonWrap.append(prevBtn);
+    buttonWrap.append(startBtn);
+    buttonWrap.append(stopBtn);
+    buttonWrap.append(nextBtn);
 
     startAutoScroll();
   }
@@ -129,10 +147,10 @@ function createSlider(containerId, wrapId, options) {
   };
 }
 
-const slider = createSlider('slider-line', 'slider', {
+const slider = createSlider('slider-line', {
   loop: true,
-  slidesPerFrame: 2,
+  slidesPerFrame: 1,
   showControls: true,
   autoScroll: true,
-  autoScrollDelay: 2000,
+  autoScrollDelay: 5000,
 });
