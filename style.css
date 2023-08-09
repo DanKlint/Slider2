@@ -11,6 +11,7 @@ body {
 
 .container {
   max-width: 1200px;
+  height: 700px;
   margin: 30px auto;
   background: #f1f1f1;
   padding: 30px;
@@ -62,6 +63,7 @@ button:active {
   position: relative;
   left: 0;
   transition: all ease 1s;
+  cursor: grabbing;
 }
 
 #slider-line img {

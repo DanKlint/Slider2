@@ -24,6 +24,7 @@ function createSlider(sliderLineId, options) {
   let autoScroll = options.autoScroll || false;
   let autoScrollInterval = null;
   let autoScrollDelay = options.autoScrollDelay || 3000;
+  let isAnimating = false;
 
   slider.style.width=`${256 * slidesPerFrame + 6}px`;
 
@@ -101,11 +102,18 @@ function createSlider(sliderLineId, options) {
     updateSlider();
   }
 
-  // Функция обновления слайдера
   function updateSlider() {
-    const offset = -currentIndex * slideWidth;
-    sliderLine.style.transform = `translateX(${offset}px)`;
-  }
+  isAnimating = true; // Начало анимации
+  const offset = -currentIndex * slideWidth;
+  sliderLine.style.transform = `translateX(${offset}px)`;
+
+  sliderLine.addEventListener('transitionend', handleTransitionEnd);
+}
+
+function handleTransitionEnd() {
+  isAnimating = false; // Завершение анимации
+  sliderLine.removeEventListener('transitionend', handleTransitionEnd);
+}
 
   // кнопочки true/false
   if (showControls) {
@@ -113,12 +121,10 @@ function createSlider(sliderLineId, options) {
     const prevBtn = document.createElement('button');
     prevBtn.innerHTML = '&#x21e6;';
     prevBtn.id = 'prev-btn';
-    prevBtn.addEventListener('click', prevSlide);
 
     const nextBtn = document.createElement('button');
     nextBtn.innerHTML = '&#x21e8;';
     nextBtn.id = 'next-btn';
-    nextBtn.addEventListener('click', nextSlide);
 
     const stopBtn = document.createElement('button');
     stopBtn.innerHTML = '&#x2016;';
@@ -129,6 +135,18 @@ function createSlider(sliderLineId, options) {
     startBtn.innerHTML = '&#x25BA;';
     startBtn.id = 'start-btn';
     startBtn.addEventListener('click', startAutoScroll);
+
+    prevBtn.addEventListener('click', () => {
+    if (!isAnimating) {
+      prevSlide();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (!isAnimating) {
+      nextSlide();
+    }
+  });
 
     buttonWrap.append(prevBtn);
     buttonWrap.append(startBtn);
